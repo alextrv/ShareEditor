@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Share Editor</string>
+    <string name="shared_text_string">Текст</string>
+    <string name="shared_files_string">Файл</string>
+    <string name="share_forward_string">Поділитись далі</string>
+    <string name="not_send_text_string">Не надсилати текст</string>
+    <string name="remove_file">Видалити</string>
+    <string name="remove_file_msg">Ви впевнені, що не хочете надсилати цей файл?</string>
+</resources>

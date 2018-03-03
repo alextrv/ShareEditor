@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Share Editor</string>
+    <string name="shared_text_string">Shared text</string>
+    <string name="shared_files_string">Shared file</string>
+    <string name="share_forward_string">Share forward</string>
+    <string name="not_send_text_string">Do not send the text</string>
+    <string name="remove_file">Delete</string>
+    <string name="remove_file_msg">Are you sure you don\'t want to share this file?</string>
 </resources>
