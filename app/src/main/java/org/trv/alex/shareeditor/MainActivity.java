@@ -3,6 +3,7 @@ package org.trv.alex.shareeditor;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ConfirmDialog.DialogAction {
+
+    private static final String URI_LIST_KEY = "uriListKey";
 
     private EditText mEditSharedText;
     private ListView mListSharedFiles;
@@ -52,12 +55,18 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.Dia
                 mEditSharedText.setText(sharedText);
             }
             if (fileUri != null) {
-                mUriList = new ArrayList<>(1);
-                mUriList.add(fileUri);
+                if (savedInstanceState != null) {
+                    mUriList = savedInstanceState.getParcelableArrayList(URI_LIST_KEY);
+                }
+                if (mUriList == null) {
+                    mUriList = new ArrayList<>(1);
+                    mUriList.add(fileUri);
+                }
                 mAdapter = new ArrayAdapter<Uri>(this, android.R.layout.simple_list_item_1, mUriList);
                 mListSharedFiles.setAdapter(mAdapter);
-                mListSharedFiles.setVisibility(View.VISIBLE);
-                mTextViewTitleFiles.setVisibility(View.VISIBLE);
+                boolean isEmpty = mUriList.isEmpty();
+                mListSharedFiles.setVisibility(isEmpty ? View.INVISIBLE : View.VISIBLE);
+                mTextViewTitleFiles.setVisibility(isEmpty ? View.INVISIBLE : View.VISIBLE);
             }
         }
 
@@ -93,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.Dia
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mUriList != null) {
+            outState.putParcelableArrayList(URI_LIST_KEY, new ArrayList<>(mUriList));
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
